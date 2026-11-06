@@ -1,7 +1,7 @@
-*if_mzsch.txt*	For Vim バージョン 9.2.  Last change: 2026 Feb 14
+*if_mzsch.txt*	For ViAI バージョン 1.0.  Last change: 2026 Feb 14
 
 
-		  VIM リファレンスマニュアル	by Sergey Khorev
+		  VIAI リファレンスマニュアル
 
 
 Vim の MzScheme インターフェイス			*mzscheme* *MzScheme*

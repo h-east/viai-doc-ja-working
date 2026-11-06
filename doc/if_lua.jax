@@ -1,7 +1,7 @@
-*if_lua.txt*	For Vim バージョン 9.2.  Last change: 2026 Sep 29
+*if_lua.txt*	For ViAI バージョン 1.0.  Last change: 2026 Sep 29
 
 
-		  VIM リファレンスマニュアル	by Luis Carvalho
+		  VIAI リファレンスマニュアル
 
 
 Vim の Lua インターフェイス				*lua* *Lua*

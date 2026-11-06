@@ -1,7 +1,7 @@
-*vim9class.txt*	For Vim バージョン 9.2.  Last change: 2026 May 21
+*vim9class.txt*	For ViAI バージョン 1.0.  Last change: 2026 May 21
 
 
-		  VIM リファレンスマニュアル	by Bram Moolenaar
+		  VIAI リファレンスマニュアル
 
 
 Vim9 のクラス、オブジェクト、インターフェイス、型定義と列挙型。	*vim9-class*
