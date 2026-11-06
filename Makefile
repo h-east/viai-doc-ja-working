@@ -3,18 +3,18 @@
 all:
 
 check:
-	nvcheck doc/*.jax vim_faq/*.jax
+	nvcheck doc/*.jax
 	vim -eu tools/maketags.vim
 	tools/script/check_leading_space.sh
 	tools/script/check_tag_diff.sh
 
 replace:
-	nvcheck -i doc/*.jax vim_faq/*.jax
+	nvcheck -i doc/*.jax
 
 html:
 	rm -rf target/html
 	mkdir -p target/html/doc
-	cp doc/*.jax vim_faq/*.jax target/html/doc
+	cp doc/*.jax target/html/doc
 	-cd target/html/doc ; vim -eu ../../../tools/buildhtml.vim -c "qall!"
 
 clean:

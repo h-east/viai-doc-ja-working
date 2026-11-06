@@ -6,7 +6,6 @@
 # 検出したら file:line 形式で報告して異常終了する。
 #
 # 引数でファイルを指定できる。省略時は上記を対象にする。
-# vim_faq/*.jax は英語原文の vim_faq.txt 自体が同じ書き方なので対象外。
 #
 # 2026-09-06 h_east       : Create initial file.
 
