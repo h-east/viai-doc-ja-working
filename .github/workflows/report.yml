@@ -19,15 +19,15 @@ jobs:
       - name: Get current time
         uses: 1466587594/get-current-time@v2
         id: current-time
-      - name: Checkout vimdoc-ja-working
+      - name: Checkout viai-doc-ja-working
         uses: actions/checkout@v7
         with:
           path: work
-      - name: Checkout vim
+      - name: Checkout viai
         uses: actions/checkout@v7
         with:
-          repository: vim/vim
-          path: vim
+          repository: viai-editor/viai
+          path: viai
       - name: Build report
         run: |
           bash work/tools/script/get_doc_info.sh
@@ -35,7 +35,6 @@ jobs:
       - name: Create or Update issue
         uses: peter-evans/create-issue-from-file@v6
         with:
-          title: 'Vim help : number of untranslated lines diff status'
+          title: 'ViAI help : number of untranslated lines diff status'
           content-filepath: ./doc_info.md
-          issue-number: 968
             # issue-number: if removed, create new issue/if define issue num, update numbered issue.

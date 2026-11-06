@@ -1,6 +1,6 @@
 #! /bin/bash
 #
-# vimdoc-ja-working/en/*.txt(old) と vim/runtime/doc/*.txt(new) を比較して
+# viai-doc-ja-working/en/*.txt(old) と viai/runtime/doc/*.txt(new) を比較して
 # 変更行数情報をMarkdownのtable形式でファイルに出力する。
 #
 # 2018-05-31 h_east       : Create initial file.
@@ -8,9 +8,9 @@
 
 # ローカルに利用する場合は自分の環境にあわせて変更する必要がある
 # リポジトリには GitHub workflow で利用する設定で格納する
-# GitHub workflow では vim/vim は ${GITHUB_WORKSPACE}/vim へ clone している
-new_doc_dir=${GITHUB_WORKSPACE}/vim/runtime/doc
-# GitHub workflow では vim-jp/vimdoc-ja-working は ${GITHUB_WORKSPACE}/work へ clone している
+# GitHub workflow では viai-editor/viai は ${GITHUB_WORKSPACE}/viai へ clone している
+new_doc_dir=${GITHUB_WORKSPACE}/viai/runtime/doc
+# GitHub workflow では viai-editor/viai-doc-ja-working は ${GITHUB_WORKSPACE}/work へ clone している
 old_doc_dir=${GITHUB_WORKSPACE}/work/en
 
 # 出力ファイル名

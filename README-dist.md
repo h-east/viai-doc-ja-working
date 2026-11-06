@@ -1,18 +1,10 @@
-# vimdoc-ja
+# viai-doc-ja
 
-[![Generate vim help](https://github.com/vim-jp/vimdoc-ja-working/actions/workflows/generate.yml/badge.svg)](https://github.com/vim-jp/vimdoc-ja-working/actions/workflows/generate.yml)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/vim-jp/vimdoc-ja)
+[![Generate vim help](https://github.com/viai-editor/viai-doc-ja-working/actions/workflows/generate.yml/badge.svg)](https://github.com/viai-editor/viai-doc-ja-working/actions/workflows/generate.yml)
 
-日本語に翻訳した Vim 付属のヘルプを配布するためのプロジェクトです。
+日本語に翻訳した ViAI 付属のヘルプを配布するためのプロジェクトです。
+[vim-jp/vimdoc-ja](https://github.com/vim-jp/vimdoc-ja) の翻訳を元にしています。
 
-詳しい利用方法については [wiki](https://github.com/vim-jp/vimdoc-ja/wiki) を参照してください。
+間違いを見つけた場合、issue トラッカー <https://github.com/viai-editor/viai-doc-ja-working/issues> でお知らせください。
 
-HTML 版は <https://vim-jp.org/vimdoc-ja/> から参照することができます。
-また <https://deepwiki.com/vim-jp/vimdoc-ja> において本ヘルプの内容について AI へ質問することができます。
-
-間違いを見つけた場合、issue トラッカーかメーリングリストでお知らせください。
-
-- issue トラッカー <https://github.com/vim-jp/vimdoc-ja-working/issues>
-- メーリングリスト <https://groups.google.com/group/vimdoc-ja>
-
-翻訳作業に協力していただける方は <https://github.com/vim-jp/vimdoc-ja-working> をご覧ください。
+翻訳作業に協力していただける方は <https://github.com/viai-editor/viai-doc-ja-working> をご覧ください。
