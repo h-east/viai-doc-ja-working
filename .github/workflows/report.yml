@@ -9,6 +9,7 @@ on:
     - cron: '30 15 * * SAT'
   workflow_dispatch:
 permissions:
+  contents: read
   issues: write
 
 jobs:
