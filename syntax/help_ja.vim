@@ -1,9 +1,13 @@
 scriptencoding utf-8
 
 syn match helpVim		"\<Vim バージョン [0-9][0-9.a-z]*"
+syn match helpVim		"\<ViAI バージョン [0-9][0-9.a-z]*"
 syn match helpVim		"^\s\+\zsVIM - メインヘルプファイル$"
 syn region helpVim		start="^\s\+VIM リファレンス" end="^$"
 syn region helpVim		start="^\s\+VIM ユーザーマニュアル" end="^$"
+syn match helpVim		"^\s\+\zsVIAI - メインヘルプファイル$"
+syn region helpVim		start="^\s\+VIAI リファレンス" end="^$"
+syn region helpVim		start="^\s\+VIAI ユーザーマニュアル" end="^$"
 syn region helpNotVi start="{Vim" start="{|++\?[A-Za-z0-9_/()]\+|" end="}" contains=helpLeadBlank,helpHyperTextJump
 syn match helpWarning "\<警告:"
 syn region helpTransNote start="{訳注:" end="}" contains=helpLeadBlank,helpHyperTextJump,helpBracesInTransNote
