@@ -38,4 +38,5 @@ jobs:
         with:
           title: 'ViAI help : number of untranslated lines diff status'
           content-filepath: ./doc_info.md
+          issue-number: 1
             # issue-number: if removed, create new issue/if define issue num, update numbered issue.
