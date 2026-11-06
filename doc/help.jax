@@ -1,6 +1,6 @@
-*help.txt*	For Vim バージョン 9.2.  Last change: 2026 Feb 14
+*help.txt*	For ViAI バージョン 1.0.  Last change: 2026 Feb 14
 
-			   VIM - メインヘルプファイル
+			   VIAI - メインヘルプファイル
 									 k
 	      移動:  カーソルを使用するか、"h" で左、"j" で下、	       h   l
 		     "k" で上、"l" で右に移動できる。			 j
@@ -38,11 +38,13 @@
 		    行う。|vimtutor| を参照。
 		    ユーザーマニュアルを最初から最後まで読む: |usr_01.txt|
 
+ViAI は Vim を改変したものである。|viai| を参照。
 Vim は Vi IMproved の略である。Vim の大部分は Bram Moolenaar によって作成され
 たが、その他多くの人の協力によって作成された。|credits| 参照。
 ------------------------------------------------------------------------------
 						*doc-file-list* *Q_ct*
 基本:
+|viai|		ViAI の開発方針と Vim との違い
 |quickref|	よく使うコマンドのクイックリファレンス
 |tutor|		30 分の初心者向け対話コース
 |copying|	著作権について
@@ -98,7 +100,7 @@ Vim script を書く ~
 |usr_52.txt|  Vim9 script でプラグインを作る
 
 インストール ~
-|usr_90.txt|  Vim のインストール
+|usr_90.txt|  ViAI のインストール
 
 								*reference_toc*
 リファレンスマニュアル: これらのファイルは Vim の細部まで説明している。
@@ -117,6 +119,7 @@ Vim script を書く ~
 |develop.txt|	Vimの開発に関して
 |debug.txt|	Vimのデバッグについて
 |uganda.txt|	Vimの配布条件と、あなたが支払ったお金の使い道について
+|viai.txt|	ViAI の開発方針と Vim との違い
 
 基本的な編集 ~
 |starting.txt|	Vimの起動、起動引数や初期化に関して
