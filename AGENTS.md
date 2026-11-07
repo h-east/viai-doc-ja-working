@@ -32,8 +32,13 @@ viai-editor/viai-doc-ja へ反映する。
   分けてよい。
 - ブランチ名は `update-{ファイル名}` にする (例: `update-viai`)。
 - commit メッセージは `Update {ファイル名}.{txt,jax}` にする
-  (例: `Update viai.{txt,jax}`)。
+  (例: `Update viai.{txt,jax}`)。AI を使った場合は `Assisted-by:` の
+  行を付ける。`Signed-off-by:` は付けない。
 - PR の説明 (PR description) は、原文への指摘が無ければ空にする。
+- PR は fork に push してから作る:
+  `gh pr create -R viai-editor/viai-doc-ja-working --head {fork の所有者}:{ブランチ名}`
+- CI で指摘されたら、修正を amend して force push し、1 commit に
+  保つ。マージは人間が行う。
 
 ## 翻訳の決まり
 
@@ -55,9 +60,11 @@ viai-editor/viai-doc-ja へ反映する。
 - タイトルは `VIAI リファレンスマニュアル` のように訳す。
 - 最終行のモードライン (`vim:tw=78:ts=8:noet:ft=help:norl:`) は原文の
   ままにする。
-- タグ `*tag*` とリンク `|tag|` は原文と同じものを残す。タグの開始桁は
-  原文と同じになるよう、タブの数で調整する (日本語は 1 文字 2 桁)。
-- 表や目次も、列の開始桁が原文と同じになるようタブで調整する。
+- タグ `*tag*` とリンク `|tag|` は原文と同じものを残す。
+- 原文の空白 (タブ・スペース) は完全に再現する。ただし、ヘルプタグ
+  `*tag*` や目次の `|tag|` が行末にある行で、その前の訳の長さが原文と
+  違う場合は、`*tag*` や `|tag|` の開始位置を原文とそろえるために
+  タブを増減する。
 - 中身が空の節も、見出しとタグを残す。
 - 行頭の字下げはタブを使い、タブの直前にスペースを置かない。
 
@@ -94,4 +101,7 @@ make check
 - `tools/script/check_tag_diff.sh`: `en/*.txt` と `doc/*.jax` のタグの
   食い違い
 
-nvcheck が手元に無い場合は、PR の CI (reviewdog) で確認する。
+nvcheck が手元に無い場合は、`dict.yml` の揺れの表記 (例:
+「プレフィックス」「実行ファイル」) で訳を検索して確かめてから PR を
+作る。PR の CI (reviewdog) でも確認される。表記を直して語の長さが
+変わったら、その段落を「改行位置」の手順で整形し直す。
