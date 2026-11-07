@@ -36,8 +36,10 @@ viai-editor/viai-doc-ja へ反映する。
   分けてよい。
 - ブランチ名は `update-{ファイル名}` にする (例: `update-viai`)。
 - commit メッセージは `Update {ファイル名}.{txt,jax}` にする
-  (例: `Update viai.{txt,jax}`)。AI を使った場合は `Assisted-by:` の
-  行を付ける。`Signed-off-by:` は付けない。
+  (例: `Update viai.{txt,jax}`)。`.jax` しか変更していない場合は
+  `Update {ファイル名}.jax` にする (例: `Update builtin.jax`)。AI を
+  使った場合は `Assisted-by:` の行を付ける。`Signed-off-by:` は付けな
+  い。
 - PR の説明 (PR description) は、原文への指摘が無ければ空にする。
 - PR は fork に push してから作る:
   `gh pr create -R viai-editor/viai-doc-ja-working --head {fork の所有者}:{ブランチ名}`
