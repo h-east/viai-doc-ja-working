@@ -9,9 +9,7 @@ ViAI 付属のヘルプを日本語に翻訳するためのプロジェクトで
 
 配布専用の[ページ](https://github.com/viai-editor/viai-doc-ja)にアクセスしてください!
 
-## ヘルプの翻訳に協力したい
-
-間違いを見付けた場合、[issueトラッカー](https://github.com/viai-editor/viai-doc-ja-working/issues) でお知らせください。プルリクエストも大歓迎です。
+間違いを見付けた場合、[issueトラッカー](https://github.com/viai-editor/viai-doc-ja-working/issues) でお知らせください。
 
 ## 注意事項
 
