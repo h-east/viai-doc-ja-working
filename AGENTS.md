@@ -38,7 +38,11 @@ viai-editor/viai-doc-ja へ反映する。
 - PR は fork に push してから作る:
   `gh pr create -R viai-editor/viai-doc-ja-working --head {fork の所有者}:{ブランチ名}`
 - CI で指摘されたら、修正を amend して force push し、1 commit に
-  保つ。マージは人間が行う。
+  保つ。amend の前に、HEAD が自分の commit であることを確かめる。
+  master を取り込む必要がある時は、merge ではなく rebase する。
+- マージは人間が行う。マージ後は master に戻って upstream から pull
+  し、作業ブランチを削除して `git fetch --prune` する。fork の master
+  も upstream に追いつかせる。
 
 ## 翻訳の決まり
 
