@@ -1,4 +1,4 @@
-name: Generate vim help
+name: Generate viai help
 on:
   push:
     branches:

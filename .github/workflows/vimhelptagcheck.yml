@@ -1,4 +1,4 @@
-name: "vim help tag name check"
+name: "viai help tag name check"
 on: [push, pull_request]
 
 jobs:
