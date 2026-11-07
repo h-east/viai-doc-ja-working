@@ -1,7 +1,7 @@
-*usr_toc.txt*	For Vim version 9.2.  Last change: 2026 Feb 14
+*usr_toc.txt*	For ViAI version 1.0.  Last change: 2026 Feb 14
 
 
-		     VIM USER MANUAL	by Bram Moolenaar
+		     VIAI USER MANUAL
 
 
 			      Table Of Contents		*user-manual* *usr*
@@ -38,7 +38,7 @@ Editing Effectively ~
 |usr_31.txt|  Exploiting the GUI
 |usr_32.txt|  The undo tree
 
-Tuning Vim ~
+Tuning ViAI ~
 |usr_40.txt|  Make new commands
 |usr_41.txt|  Write a Vim script
 |usr_42.txt|  Add new menus
@@ -51,8 +51,8 @@ Writing Vim script ~
 |usr_51.txt|  Write plugins
 |usr_52.txt|  Write larger plugins
 
-Making Vim Run ~
-|usr_90.txt|  Installing Vim
+Making ViAI Run ~
+|usr_90.txt|  Installing ViAI
 
 
 Reference manual ~
@@ -288,9 +288,9 @@ Subjects that can be read independently.
 		|32.4|	Time travelling
 
 ==============================================================================
-Tuning Vim ~
+Tuning ViAI ~
 
-Make Vim work as you like it.
+Make ViAI work as you like it.
 
 |usr_40.txt|  Make new commands
 		|40.1|	Key mapping
@@ -365,16 +365,16 @@ Writing Vim script ~
 		|52.6|	Vim9 examples: comment and highlight-yank plugin
 
 ==============================================================================
-Making Vim Run ~
+Making ViAI Run ~
 
-Before you can use Vim.
+Before you can use ViAI.
 
-|usr_90.txt|  Installing Vim
+|usr_90.txt|  Installing ViAI
 		|90.1|	Unix
 		|90.2|	MS-Windows
 		|90.3|	Upgrading
 		|90.4|	Common installation issues
-		|90.5|	Uninstalling Vim
+		|90.5|	Uninstalling ViAI
 
 ==============================================================================
 
