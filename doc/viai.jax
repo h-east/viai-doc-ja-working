@@ -1,0 +1,297 @@
+*viai.txt*	For ViAI バージョン 1.0.  Last change: 2026 Nov 05
+
+
+		  VIAI リファレンスマニュアル
+
+
+ViAI と Vim の違い				*viai*
+
+ViAI (Vim Advanced Integrated、"vee-eye" と発音する) は、元 Vim メンテナーであ
+る Hirohito Higashi (h-east) が AI の支援を最大限に活用して開発した、Vim を改
+変したものである。このファイルでは ViAI の開発方針を説明し、ViAI が Vim と異な
+る箇所を列挙する。残りのドキュメントは、Vim について述べている箇所も含めて、
+ViAI にも当てはまる。
+
+1. 開発方針			|viai-policy|
+2. プログラム			|viai-programs|
+3. バージョン			|viai-version|
+4. ユーザー設定			|viai-config|
+5. viminfo ファイル		|viai-viminfo|
+6. $VIM と $VIMRUNTIME		|viai-vimruntime|
+7. エラー番号			|viai-error-numbers|
+8. デフォルト値			|viai-defaults|
+9. 関数インターフェイス		|viai-functions|
+10. 追加機能			|viai-additional-features|
+11. ライセンス			|viai-license|
+12. スポンサー			|viai-sponsor|
+
+==============================================================================
+1. 開発方針					*viai-policy*
+
+- ViAI の主な目的は、以下のプラグインがうまく動作することである:
+	lsp.vim		LSP クライアント
+			https://github.com/h-east/lsp.vim
+	vim9ls		Vim9 script の言語サーバー
+			https://github.com/h-east/vim9ls
+  これらはオプションのパッケージとして ViAI に付属している。|package-lsp.vim|
+  を参照。
+- ViAI は、Vim9 script を読み込むときに Vim が出すエラーを、スクリプトを実行せ
+  ずに診断として表示できる唯一のエディタである。|:source-dryrun| を参照。
+- あなたの Vim の設定とプラグインは、そのまま ViAI で動作する。|viai-config|
+  を参照。
+- ViAI は、Vim との互換性をできる限り保ちながら、独自の機能を追加する。
+- Vim のパッチは、原則として ViAI に取り込まれる。
+
+							*viai-ai-tools*
+AI ツールの利用 ~
+
+- AI ツールが仕様を提案することはあるが、それを練り上げて決定するのは人間であ
+  る。
+- AI ツールが生成したコードは、コミットされる前に、その仕様と実装の両方につい
+  て、必ず人間がレビューする。
+
+ViAI のすべての変更は、それがどのように書かれたかにかかわらず、メンテナーが責
+任を負う。
+
+Vim 由来のヘルプの変更 ~
+
+Vim 由来のヘルプファイルの中の以下の箇所は、ViAI についてのものである:
+	|intro|		ViAI とは何か、|help.txt| と |01.1| にもある
+	|pronounce|	ViAI の発音と表記
+	|internet|	ViAI が開発されている場所
+	|viai-bugs|	バグの報告方法と扱い方
+	|credits|	ViAI のメンテナー
+	|usr_90.txt|	ViAI のインストール方法
+
+Vim 由来のすべてのヘルプファイルでは、1 行目に ViAI のバージョンと Vim の
+"Last change" の日付があり、タイトルは作者なしで ViAI を名乗っている。
+
+==============================================================================
+2. プログラム					*viai-programs*
+
+ViAI を Vim と並べてインストールできるように、プログラムには ViAI にちなんだ名
+前が付けられている:
+
+	Vim		ViAI ~
+	vim		viai
+	gvim		gviai
+	rvim		rviai
+	rgvim		rgviai
+	evim		eviai
+	vimdiff		viaidiff
+	gvimdiff	gviaidiff
+
+MS-Windows では、プログラムは "viai.exe" と "gviai.exe" である。DLL サポート付
+きでビルドした場合は "viai32.dll" または "viai64.dll" を使う。GUI は外部コマン
+ドを "vimrun.exe" の代わりに "viairun.exe" で実行する。|win32-vimrun| を参照。
+エクスプローラーのコンテキストメニューの "Edit with ViAI" の項目と "Open
+With..." の項目は、Vim のものを置き換えないように、独自のレジストリエントリを
+使う。|win32-popup-menu| を参照。GUI のウィンドウクラスは "Vim" の代わりに
+"ViAI" である。OLE サーバーは独自のクラス ID を持つ "ViAI.Application" である。
+|ole-activation| を参照。インストールプログラムは "viai.bat"、"gviai.bat"、
+"eviai.bat"、"viaidiff.bat"、"gviaidiff.bat" を作成し、スタートメニューのフォ
+ルダーとアンインストールの項目に "ViAI 1.0" という名前を付ける。
+
+"ex"、"view"、"gview"、"rview"、"rgview"、"eview" はインストールされない。代わ
+りに "viai -e"、"viai -R" などを使うこと。|-e| と |-R| を参照。
+
+"vimtutor" プログラムはない。|:Tutor| コマンドを使うこと。Unix では "xxd" もイ
+ンストールされない。Vim の xxd プログラムを使うこと。
+
+Unix では、man ページは "viai.1"、"eviai.1"、"viaidiff.1" としてインストールさ
+れ、その他のプログラム用にはリンクが作られる。翻訳された man ページは、Vim に
+ついて書かれているので、インストールされない。
+
+デフォルトのクライアントサーバー名は "GVIM" の代わりに "GVIAI" である。
+|client-server-name| と |{server}| を参照。
+
+ViAI は独自のロゴとアイコンを持つ。アイコンファイルには ViAI にちなんだ名前が
+付けられている。例えば X11 用の "viai32x32.xpm" (|X11-icon| を参照) や、
+MS-Windows のカスタムアイコン用の "bitmaps/viai.ico" (|windows-icon| を参照)
+である。Unix では、ロゴはスケーラブルアイコン
+"/usr/local/share/icons/hicolor/scalable/apps/gviai.svg" としてもインストール
+される (デフォルトのプリフィックスを使っている場合)。
+
+GTK では、ウィンドウがインストールされた "gviai.desktop" ファイルとそのアイコ
+ンに結び付くように、プログラム名は "gvim" の代わりに "gviai" である。GTK4 につ
+いては |gui-gtk| の "--prg-name" を参照。
+
+ランタイムファイルは "/usr/local/share/vim/vim92" の代わりに
+"/usr/local/share/viai/viai10" にインストールされる (デフォルトのプリフィック
+スを使っている場合)。これが $VIMRUNTIME であり、$VIM は
+"/usr/local/share/viai" である。
+
+翻訳されたメッセージは "vim.mo" の代わりに "viai.mo" としてインストールされる。
+|multilang-messages| を参照。そのため ViAI は Vim の翻訳を表示せず、ViAI をイ
+ンストールしてもそれらは置き換えられない。
+
+==============================================================================
+3. バージョン					*viai-version*
+
+ViAI は 1.0 から始まる独自のバージョン番号と、独自のパッチ番号を持つ。イントロ
+画面と |:version| は、ViAI のバージョンと、ViAI のもとになった Vim のバージョ
+ンを表示する。":version" は ViAI のパッチを "Included patches" として、Vim の
+パッチを "Included Vim patches" として列挙する。
+
+Vim 用に書かれたプラグインが動作し続けるように、|v:version|、|v:versionlong|、
+has("patch-9.2.1186") は Vim のバージョンを返す。|v:viai_version| と
+|v:viai_versionlong| は ViAI のバージョンを返す。ViAI かどうかを調べるには、
+|has()| に以下を指定する:
+						*viai-feature*
+	viai		ViAI では真。
+	viai-1.0	ViAI バージョン 1.0 以降で真。
+	viai-1.0.3	ViAI バージョン 1.0 でパッチ 3 以降で真。
+
+例: >
+	if has("viai")
+	  " ViAI 専用の設定
+	endif
+<
+==============================================================================
+4. ユーザー設定					*viai-config*
+
+ViAI 自身のユーザー設定が存在しない限り、ViAI は Vim のユーザー設定を使う。こ
+れは ViAI の起動時に一度だけ決定される。以下のいずれかが存在する場合は、ViAI
+自身の設定が使われる:
+
+	Unix			MS-Windows ~
+	~/.viairc		$HOME/_viairc
+	~/.viai/		$HOME/viaifiles/
+	$XDG_CONFIG_HOME/viai/
+
+~/.viai/、$HOME/viaifiles/、$XDG_CONFIG_HOME/viai/ はディレクトリであり、空で
+もよい。$XDG_CONFIG_HOME が設定されていない場合は ~/.config/viai/ が使われる。
+
+その場合、ViAI は Vim のファイルの代わりに自身のファイルを使い、Vim のユーザー
+ファイルは一切使われない:
+
+	Vim			ViAI ~
+Unix:
+	~/.vimrc		~/.viairc
+	~/.vim/vimrc		~/.viai/vimrc
+	~/.config/vim/vimrc	~/.config/viai/vimrc
+	~/.gvimrc		~/.gviairc
+	~/.vim/gvimrc		~/.viai/gvimrc
+	~/.config/vim/gvimrc	~/.config/viai/gvimrc
+	~/.vim/			~/.viai/
+	~/.config/vim/		~/.config/viai/
+MS-Windows:
+	$HOME/_vimrc		$HOME/_viairc
+	$HOME/vimfiles/vimrc	$HOME/viaifiles/vimrc
+	$HOME/_gvimrc		$HOME/_gviairc
+	$HOME/vimfiles/gvimrc	$HOME/viaifiles/gvimrc
+	$HOME/vimfiles/		$HOME/viaifiles/
+
+これらのディレクトリは 'runtimepath'、'packpath'、'viewdir' に使われる。
+$XDG_CONFIG_HOME を使う規則は Vim と同じである。|xdg-vimrc| と |xdg-runtime|
+を参照。
+
+以下は Vim と同じである: $VIMINIT、$EXINIT、exrc ファイル、'exrc' オプションで
+使われるローカル vimrc、システム vimrc。$VIM は ViAI 自身のディレクトリである
+ことに注意。|viai-programs| を参照。
+
+MS-Windows では、インストールプログラムはデフォルトでプラグイン用に
+$HOME/vimfiles/ を作成するので、ViAI は Vim のユーザー設定を使い続ける。代わり
+に $HOME/viaifiles/ を作成して、ViAI に自身のユーザー設定を使わせることもでき
+る。
+
+==============================================================================
+5. viminfo ファイル				*viai-viminfo*
+
+ViAI は、Vim のユーザー設定を使う場合も、常に自身の viminfo ファイルを使う:
+
+	Vim			ViAI ~
+	~/.viminfo		~/.viaiinfo		(Unix)
+	$HOME/_viminfo		$HOME/_viaiinfo		(MS-Windows)
+	$VIM/_viminfo		$VIM/_viaiinfo		(MS-Windows、$HOME なし)
+
+ViAI の viminfo ファイルがまだ存在しない場合、ViAI は代わりに Vim の viminfo
+ファイルを読み込み、書き込む際にそれを ViAI の viminfo ファイルにマージする。
+そのため、Vim の履歴やマークなどは初回に引き継がれる。Vim の viminfo ファイル
+が書き込まれることはない。それは $HOME でのみ探されるので、$HOME が設定されて
+いない場合は何も引き継がれない。
+
+これは、viminfo ファイル名が 'viminfofile' または 'viminfo' の "n" フラグで設
+定されていない場合にのみ適用される。
+
+==============================================================================
+6. $VIM と $VIMRUNTIME				*viai-vimruntime*
+
+$VIMRUNTIME を使う Vim 用に書かれたプラグインが動作し続けるように、ViAI は Vim
+と同じように |$VIM| と |$VIMRUNTIME| を使う。
+
+$VIM または $VIMRUNTIME が環境変数で設定されている場合、ViAI はそれを使う。そ
+のため、例えばシェルの起動ファイルで Vim のために $VIMRUNTIME を設定すると、
+ViAI も Vim のランタイムファイルを使う。それは Vim が起動される場所でのみ設定
+すること。
+
+ViAI が自身で $VIM または $VIMRUNTIME を設定した場合、そこで起動された Vim が
+自身のランタイムファイルを使うように、それを端末ウィンドウで実行されるプログラ
+ムには渡さない。それが環境変数から来た場合、|:let-environment| で設定された場
+合、または |term_start()| の "env" 引数で与えられた場合は、渡される。その他の
+子プロセス、例えば |:!|、|system()|、|job_start()| で起動されたものは、常にそ
+れらを受け取る。
+
+==============================================================================
+7. エラー番号					*viai-error-numbers*
+
+ViAI が追加するエラーメッセージは E8000 から E8999 の番号を持つ。Vim からのエ
+ラーメッセージは、その番号を保つ。
+
+==============================================================================
+8. デフォルト値					*viai-defaults*
+
+==============================================================================
+9. 関数インターフェイス				*viai-functions*
+
+==============================================================================
+10. 追加機能					*viai-additional-features*
+
+ViAI には、Vim にない以下の機能がある:
+
+|:source-dryrun|
+	スクリプトを実行せずに読み込み、エラーがないかを調べる。
+
+|v:viai_version| と |v:viai_versionlong|
+	ViAI のバージョン。|viai-version| を参照。
+
+"viai" を指定した |has()|
+	ViAI では真。|viai-feature| を参照。
+
+|t_Cs| と |t_Ce|
+	これらが空で、端末が波線の下線をサポートしていると応答した場合、これら
+	が設定される。|terminalprops()| を参照。
+
+|package-lsp.vim|
+	lsp.vim と vim9ls のパッケージ。
+
+==============================================================================
+11. ライセンス					*viai-license*
+
+最初の取り込み以降に ViAI で行われた変更は、Apache License 2.0 でライセンスさ
+れる。Vim から取り込まれたコードは、Vim のライセンスでライセンスされる。
+|license| を参照。
+
+ViAI は、Vim のライセンスの第 II 節に基づき、Vim を改変したものとして配布され
+る:
+- すべての変更を含むソースコードは、ViAI のリポジトリで入手できる (II.2.c):
+	https://github.com/viai-editor/viai
+- 実行可能ファイルは、変更のソースコードなしで配布される (II.2.d)。変更はリポ
+  ジトリで入手可能なままである。
+- |:version| とイントロ画面は、ViAI が Vim を改変したものであることを示す
+  (II.3)。
+
+ViAI のメンテナーに連絡するには、以下で issue を開くこと:
+	https://github.com/viai-editor/viai/issues
+
+==============================================================================
+12. スポンサー					*viai-sponsor*
+
+ViAI が役に立つと思ったら、GitHub Sponsors でそのメンテナーである Hirohito
+Higashi のスポンサーになることができる:
+	https://github.com/sponsors/h-east
+
+このお金はウガンダの子供たちには届かない。彼らを支援するには |uganda| を参照。
+Vim のスポンサーになるには |sponsor| を参照。
+
+ vim:tw=78:ts=8:noet:ft=help:norl:
