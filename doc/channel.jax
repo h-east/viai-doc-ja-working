@@ -27,6 +27,7 @@ Netbeans インターフェイスもチャネルを使っている。|netbeans|
 14. プロンプトバッファを使う		|prompt-buffer|
 15. 言語サーバープロトコル		|language-server-protocol|
 16. デバッグアダプタープロトコル	|debug-adapter-protocol|
+17. モデルコンテキストプロトコル	|model-context-protocol|
 
 							*E1277*
 {Vim が |+channel| 機能付きでコンパイルされたときのみ有効}
@@ -56,6 +57,7 @@ JSON	JSON エンコーディング |json_encode()|
 JS	JavaScript スタイルの JSON 風のエンコーディング |js_encode()|
 LSP	Language Server Protocol のエンコーディング |language-server-protocol|
 DAP	Debug Adapter Protocol のエンコーディング |debug-adapter-protocol|
+MCP	Model Context Protocol のエンコーディング |model-context-protocol|
 
 共通の組み合わせ:
 - NL モードでパイプを介して接続されたジョブを使用する。例えば、スタイルチェッ
@@ -149,6 +151,8 @@ Vim は、エディタによって起動される言語サーバーのように�
 	endfunc
 	let ch = ch_open('stdio', #{mode: 'lsp', callback: 'OnMessage'})
 <
+MCP サーバーでは "lsp" の代わりに "mcp" モードを使用する。
+|model-context-protocol| を参照。
 							*E1582* *E1583*
 "stdio" というアドレスは、Vim が |--stdio-channel| を指定して起動された場合に
 のみ、かつ一度だけ使用できる。その際、Vim の標準入力と標準出力はヌルデバイスに
@@ -192,6 +196,7 @@ Vim は、エディタによって起動される言語サーバーのように�
 	"blob" - raw メッセージを使い、コールバックデータを |Blob| として渡す。
 	"lsp"  - language server protocol エンコーディングを使う
 	"dap"  - debug adapter protocol エンコーディングを使う
+	"mcp"  - model context protocol エンコーディングを使う
 						*channel-callback* *E921*
 "callback"	メッセージ受信時に他のハンドラーで扱われない時に呼ばれる (例え
 		ば、ID が0の JSON メッセージ)。これはチャネルのハンドルと、受
@@ -201,9 +206,9 @@ Vim は、エディタによって起動される言語サーバーのように�
 	endfunc
 	let channel = ch_open("localhost:8765", {"callback": "Handle"})
 <
-		"mode" が "json"、"js"、"lsp"、または "dap" のいずれかの場合、
-		"msg" 引数は受信したメッセージの本文であり、Vim の型に変換され
-		る。
+		"mode" が "json"、"js"、"lsp"、"dap"、または "mcp" のいずれか
+		の場合、"msg" 引数は受信したメッセージの本文であり、Vim の型に
+		変換される。
 		"mode" が "nl" の場合、"msg" 引数は NL を除く 1 つのメッセージ
 		である。
 		"mode" が "raw" の場合、"msg" 引数はメッセージ全体を格納した文
@@ -588,16 +593,16 @@ ch_evalexpr({handle}, {expr} [, {options}])			*ch_evalexpr()*
 		ンコードされる。この関数は生のチャネルでは使用できない。
 		|channel-use| を参照。
 		{handle} はチャネルもしくはチャネルを持つジョブであっても良い。
-		"lsp" または "dap" モードでチャネル使用時は、{expr} は |Dict|
-		でなければならない。
+		"lsp"、"dap" または "mcp" モードでチャネル使用時は、{expr} は
+		|Dict| でなければならない。
 								*E917*
 		{options} は辞書でなければならない。また "callback" のエントリ
 		を持ってはならない。また個別のリクエストに対して "timeout" を
 		持つ事ができる。
 
 		ch_evalexpr() は応答を待ち、式をデコードした物が返される。エ
-		ラーもしくはタイムアウトの場合は空の |String|、あるいは "lsp"
-		または "dap" モードでチャネル使用時は空の |Dict| が返る。
+		ラーもしくはタイムアウトの場合は空の |String|、あるいは "lsp"、
+		"dap" または "mcp" モードでチャネル使用時は空の |Dict| が返る。
 
 		Note 応答を待っている間、Vimは他のメッセージを処理する。これが
 		トラブルを引き起こさないことを確認する必要がある。
@@ -675,6 +680,7 @@ ch_info({handle})						*ch_info()*
 		   "err_timeout"  タイムアウト(ミリ秒)
 		   "in_status"	  "open" または "closed"
 		   "in_mode"	  "NL", "RAW", "JSON", "JS", "LSP" または "DAP"
+				  または "MCP"
 		   "in_io"	  "null", "pipe", "file" または "buffer"
 		   "in_timeout"	  タイムアウト(ミリ秒)
 
@@ -818,14 +824,15 @@ ch_sendexpr({handle}, {expr} [, {options}])			*ch_sendexpr()*
 		|channel-use| を参照。				*E912*
 		{handle} はチャネルもしくはチャネルを持つジョブであっても良い。
 		チャネルは開いていなければならない。
-		"lsp" まただ "dap" モードでチャネル使用時は、{expr} は |Dict|
-		でなければならない。
+		"lsp"、"dap" または "mcp" モードでチャネル使用時は、{expr} は
+		|Dict| でなければならない。
 
-		チャネルのモードが "lsp" または "dap" の場合、辞書を返す。それ
-		以外は空の文字列を返す。{options} に "callback" の項目が存在す
-		る場合、リクエストメッセージの ID を含む辞書を返す。ID は LSP
-		サーバーまたは DAP サーバーへキャンセルのリクエスト(必要な場合)
-		を送るのに使うことができる。エラーのときは空の辞書を返す。
+		チャネルのモードが "lsp"、"dap" または "mcp" の場合、辞書を返
+		す。それ以外は空の文字列を返す。{options} に "callback" の項目
+		が存在する場合、リクエストメッセージの ID を含む辞書を返す。ID
+		は LSP サーバーまたは DAP サーバーへキャンセルのリクエスト(必
+		要な場合)を送るのに使うことができる。エラーのときは空の辞書を
+		返す。
 
 		{expr} に対して応答メッセージを受けないのであれば、{options}
 		に "callback" 項目を指定しないこと。
@@ -1717,5 +1724,40 @@ Vim は JSON DAP メッセージに "seq" フィールドを自動的に追加�
 
 それ以外の場合、動作は Vim が "lsp" チャネルモード |language-server-protocol|
 を処理する方法と同じである。
+
+==============================================================================
+17. モデルコンテキストプロトコル		*model-context-protocol*
+
+{|ViAI| のみ}
+
+モデルコンテキストプロトコルの仕様は以下にある:
+
+    https://modelcontextprotocol.io/specification
+
+MCP メッセージは、LSP メッセージと同様に JSON-RPC メッセージであるが、ヘッダー
+なしで送信される: 各メッセージは NL で終わる 1 行の JSON である。これは MCP の
+stdio トランスポートであり、HTTP トランスポートはサポートされていない。
+
+MCP メッセージを送受信するには、|channel-mode| を "mcp" に設定する。それ以外
+は、メッセージは "lsp" チャネルモードと同様に処理される。
+|language-server-protocol| を参照。受信したメッセージは JSON の値が終わるとこ
+ろで終わるため、複数行にわたる JSON も受け付けられる。JSON-RPC のバッチなど、
+JSON オブジェクトでないものは破棄される。
+
+MCP サーバーになるには、|--stdio-channel| を指定して Vim を起動し、"mcp" モー
+ドでチャネルを開く。|channel-stdio| を参照: >
+	func OnMessage(ch, msg)
+	  if a:msg.method == 'ping'
+	    call ch_sendexpr(a:ch, #{id: a:msg.id, result: {}})
+	  endif
+	endfunc
+	let ch = ch_open('stdio', #{mode: 'mcp', callback: 'OnMessage'})
+<
+MCP サーバーと通信するには、それをジョブとして開始する: >
+	let job = job_start(cmd, #{in_mode: 'mcp', out_mode: 'mcp'})
+	let resp = ch_evalexpr(job, #{method: 'tools/list', params: {}})
+<
+Vim は "initialize" などのプロトコル自体のメッセージを処理しない。スクリプトが
+処理する必要がある。
 
  vim:tw=78:ts=8:noet:ft=help:norl:
