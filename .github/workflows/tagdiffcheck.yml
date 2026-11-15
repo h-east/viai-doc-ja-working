@@ -5,6 +5,10 @@ on:
     # ラベルを貼っても再発火せず、失敗したままの run が残る。
     types: [opened, synchronize, reopened, labeled, unlabeled]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   tagdiff:
     name: Check help tag labels between en and ja
