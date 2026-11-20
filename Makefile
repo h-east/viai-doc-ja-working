@@ -11,9 +11,12 @@ check:
 replace:
 	nvcheck -i doc/*.jax
 
+VIAI_HELP_SYNTAX = https://raw.githubusercontent.com/viai-editor/viai/master/runtime/syntax/help.vim
+
 html:
-	rm -rf target/html
-	mkdir -p target/html/doc
+	rm -rf target/html target/runtime
+	mkdir -p target/html/doc target/runtime/syntax
+	curl -fsSL -o target/runtime/syntax/help.vim $(VIAI_HELP_SYNTAX)
 	cp doc/*.jax target/html/doc
 	-cd target/html/doc ; vim -eu ../../../tools/buildhtml.vim -c "qall!"
 
