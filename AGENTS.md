@@ -65,6 +65,8 @@ viai-editor/viai-doc-ja へ反映する。
 - "following" や "below" は「以下」と訳す。
 - "right-to-left" は「右から左」と訳す (例: "Right-to-left mode" は
   「右から左モード」)。
+- "public"、"protected"、"private" は訳さない (例: 「protected 変数」、
+  「public にする」)。
 - 訳語は `dict.yml` に合わせる (サーバー、ユーザー、メンテナー、
   エディタ、インターフェイス、エクスプローラーなど)。
 - 例の中のコメントも訳す。コマンド・オプション名・タグ・URL・
