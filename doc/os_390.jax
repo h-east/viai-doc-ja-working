@@ -41,10 +41,10 @@ Vim script 用に "ebcdic" 機能が追加された。ASCII に依存したス�
 2. Putty と色				*OS390-PuTTY* *zOS-PuTTY*
 
 Putty を使って z/OS に接続したときに、構文強調表示やスクリーンの表示が乱れるよ
-うな問題が発生した場合は、次の手順を試してみてください:
+うな問題が発生した場合は、次の手順を試してみること:
 
 - Putty を "vt220" 端末として設定する (Connection->Data)
-- 次の三行を vimrc に追加する:
+- 次の 3 行を vimrc に追加する:
 
 >
     set t_AB=[4%p1%dm
@@ -52,10 +52,10 @@ Putty を使って z/OS に接続したときに、構文強調表示やスク�
     set t_CO=8
 <
 
-Note:  は一文字で、<C-V><Esc> を使って入力できる。
+Note:  は 1 文字で、<C-V><Esc> を使って入力できる。
 
 ==============================================================================
-3. Motifの問題				*OS390-Motif* *zOS-Motif*
+3. Motif の問題				*OS390-Motif* *zOS-Motif*
 
 Note: Vim 6.* で確認。その後は未テスト。
 
@@ -83,12 +83,12 @@ Motif ライブラリの z/OS への移植において、プルダウンメニ�
   たら永遠にリリースされないかもしれないし…
 
 - 著者のメインフレーム上で使っている cscope のバージョンでは、cscope インター
-  フェイス(|cscope|)は動作しない。著者が使っているのはバージョン 15.0b12 で、
+  フェイス (|cscope|) は動作しない。著者が使っているのはバージョン 15.0b12 で、
   これを使って Vim でコマンド "cscope add" を実行すると、Vim がハングする。
-  cscope のデータベースのバイナリフォーマットが Vim が期待するものと異なるの
-  ではないかと推測している。cscope の現在のバージョン(15.3)を z/OS へ移植しよ
-  うとしたが、うまくいっていない。興味のある方がおられたら、何か進展があったと
-  きは著者にご連絡ください。
+  cscope のデータベースのバイナリフォーマットが Vim が期待するものと異なるので
+  はないかと推測している。cscope の現在のバージョン (15.3) を z/OS へ移植しよ
+  うとしたが、うまくいっていない。興味のある人がいれば、何か進展があったときは
+  著者に連絡してほしい。
 
 - glib/gtk はサポートしていない。著者は z/OS UNIX 上で glib をコンパイルするこ
   とはできなかった。そのため、すてきな gtk ツールバーなしで生きていかねばなら
@@ -123,7 +123,7 @@ z/OS UNIX 上の他のオープンソースソフトウェアに興味がある�
     ISBN: 0738424633
     http://www-03.ibm.com/systems/resources/servers_eserver_zseries_zos_unix_redbook_sg245944.pdf
 
-以下も参照してください:
+以下も参照:
     http://www.redbooks.ibm.com
     http://www-03.ibm.com/systems/z/os/zos/features/unix/
     http://www-03.ibm.com/systems/z/os/zos/features/unix/library/IBM+Redbooks/index.html
