@@ -47,8 +47,9 @@ viai-editor/viai-doc-ja へ反映する。
   保つ。amend の前に、HEAD が自分の commit であることを確かめる。
   master を取り込む必要がある時は、merge ではなく rebase する。
 - マージは人間が行う。マージ後は master に戻って upstream から pull
-  し、作業ブランチを削除して `git fetch --prune` する。fork の master
-  も upstream に追いつかせる。
+  し、作業ブランチを削除して `git fetch --prune origin` する (引数を
+  省くと master の追跡先の upstream しか対象にならない)。fork の
+  master も upstream に追いつかせる。
 
 ## 翻訳の決まり
 
