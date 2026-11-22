@@ -69,6 +69,9 @@ viai-editor/viai-doc-ja へ反映する。
   - 動詞句や節を "or" でつなぐ時は「〜するか、または〜する」と訳す。
   - 節をつなぐ "and" は「〜し、」のように訳す。
   - "between A and B" は「A と B の間」と訳す。
+- 2 語の複合名詞は「の」を入れずに訳す (例: "Indentation settings" は
+  「インデント設定」、"Compiler support" は「コンパイラサポート」)。3 語
+  以上つながって読みにくい場合は「の」を入れてよい。
 - "source" は「読み込む」と訳す。
 - "following" や "below" は「以下」と訳す。
 - "right-to-left" は「右から左」と訳す (例: "Right-to-left mode" は
