@@ -73,6 +73,8 @@ viai-editor/viai-doc-ja へ反映する。
   「インデント設定」、"Compiler support" は「コンパイラサポート」)。3 語
   以上つながって読みにくい場合は「の」を入れてよい。
 - "source" は「読み込む」と訳す。
+- Vim の sign 機能 (`sign.txt`) を指す "sign" は「目印」と訳す
+  (例: "Debug Signs" は「デバッグ目印」)。
 - "following" や "below" は「以下」と訳す。
 - "right-to-left" は「右から左」と訳す (例: "Right-to-left mode" は
   「右から左モード」)。
