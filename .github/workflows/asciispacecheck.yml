@@ -1,0 +1,16 @@
+name: "ascii line space check"
+on: [push, pull_request]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  asciispace:
+    name: Check spaces of ASCII lines against the original
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+      - name: ascii line space check
+        run: tools/script/check_ascii_space.sh

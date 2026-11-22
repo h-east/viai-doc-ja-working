@@ -163,6 +163,9 @@ make check
 - `tools/script/check_leading_space.sh`: 行頭のタブ前の不要なスペース
 - `tools/script/check_tag_diff.sh`: `en/*.txt` と `doc/*.jax` のタグの
   食い違い
+- `tools/script/check_ascii_space.sh`: `doc/*.jax` の ASCII だけの行
+  (タグだけの行、コード例など) の空白と、`en/*.txt` の行の空白の
+  食い違い
 
 nvcheck が手元に無い場合は、`dict.yml` の揺れの表記 (例:
 「プレフィックス」「実行ファイル」) で訳を検索して確かめてから PR を
