@@ -7,6 +7,7 @@ check:
 	vim -eu tools/maketags.vim
 	tools/script/check_leading_space.sh
 	tools/script/check_tag_diff.sh
+	tools/script/check_ascii_space.sh
 
 replace:
 	nvcheck -i doc/*.jax
