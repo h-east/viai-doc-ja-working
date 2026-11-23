@@ -75,6 +75,9 @@ viai-editor/viai-doc-ja へ反映する。
   「インデント設定」、"Compiler support" は「コンパイラサポート」)。3 語
   以上つながって読みにくい場合は「の」を入れてよい。
 - "source" は「読み込む」と訳す。
+- 機能・コマンドなどを本来の用途で使う意味の "use" や "available" は「使用」
+  「使用可能」と訳す。「利用」は何かを手段として役立てる場合だけに使う
+  (例: 「メンテナーが利用できるようにする」)。
 - Vim の sign 機能 (`sign.txt`) を指す "sign" は「目印」と訳す
   (例: "Debug Signs" は「デバッグ目印」)。
 - "script" に掛かる "legacy" は「旧来の」と訳す (例: "legacy Vim script"
