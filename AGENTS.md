@@ -83,8 +83,9 @@ viai-editor/viai-doc-ja へ反映する。
 - "script" に掛かる "legacy" は「旧来の」と訳す (例: "legacy Vim script"
   は「旧来の Vim script」)。
 - "following" や "below" は「以下」と訳す。
-- 条件の "if" は「〜場合、」と訳し、くだけた「〜なら、」は使わない
-  (例: "If it is black" は「それが黒の場合、」)。
+- 条件の "if" は「〜場合、」と訳し、「〜なら、」や「〜であれば、」
+  「〜があれば、」のような仮定の形は使わない (例: "If it is black" は
+  「それが黒の場合、」)。
 - "right-to-left" は「右から左」と訳す (例: "Right-to-left mode" は
   「右から左モード」)。
 - "public"、"protected"、"private" は訳さない (例: 「protected 変数」、
