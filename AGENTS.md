@@ -88,6 +88,8 @@ viai-editor/viai-doc-ja へ反映する。
   「それが黒の場合、」)。
 - "right-to-left" は「右から左」と訳す (例: "Right-to-left mode" は
   「右から左モード」)。
+- "undo"、"redo" は訳さない (例: 「変更を undo する」、「undo ブロック」、
+  「undo および redo コマンド」)。
 - "public"、"protected"、"private" は訳さない (例: 「protected 変数」、
   「public にする」)。
 - "Note that ..." の "Note" は訳さずに残し (ハイライトされるため)、
