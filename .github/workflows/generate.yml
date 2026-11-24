@@ -1,4 +1,4 @@
-name: Generate viai help
+name: Generate ViAI help
 on:
   push:
     branches:

@@ -1,4 +1,4 @@
-name: "viai help tag name check"
+name: "ViAI help tag name check"
 on: [push, pull_request]
 
 concurrency:
