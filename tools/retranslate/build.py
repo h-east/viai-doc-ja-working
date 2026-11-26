@@ -40,9 +40,16 @@ def width(s):
     return col
 
 
-def blank(w):
+def blank(w, tabs=True):
     # Whitespace of display width w starting at column 0.
+    if not tabs:
+        return ' ' * w
     return '\t' * (w // 8) + ' ' * (w % 8)
+
+
+def prefix_blank(prefix):
+    # Spaces for a prefix without a tab, see the end of main().
+    return blank(width(prefix), '\t' in prefix)
 
 
 def run_vim(path, lnums, listfile):
@@ -64,7 +71,7 @@ def run_vim(path, lnums, listfile):
         f'for s:l in {lnums}',
         '  let s:n = line("$")',
         '  exe (s:l + s:off) .. "normal! gqq"',
-        '  call add(s:res, s:l + s:off)',
+        '  call add(s:res, (s:l + s:off) .. " " .. (line("$") - s:n + 1))',
         '  let s:off += line("$") - s:n',
         'endfor',
         f'call writefile(s:res, "{listfile}")',
@@ -99,6 +106,7 @@ def main():
         draft.pop()
     out = []
     paras = []      # (line number in out, prefix or None)
+    spaces = []     # whether the paragraph is indented with spaces only
     for no, line in enumerate(draft, 1):
         if line.startswith('#!'):
             continue
@@ -113,11 +121,13 @@ def main():
             body = line[1:]
             if '§' in body:
                 prefix, text = body.split('§', 1)
-                out.append(blank(width(prefix)) + text)
+                out.append(prefix_blank(prefix) + text)
                 paras.append((len(out), prefix))
             else:
                 out.append(body)
                 paras.append((len(out), None))
+            line = out[-1]
+            spaces.append('\t' not in line[:len(line) - len(line.lstrip())])
         else:
             sys.exit(f'{draft_path}:{no}: unknown line: {line[:40]}')
     out_path = os.path.abspath(out_path)
@@ -125,17 +135,28 @@ def main():
         f.write('\n'.join(out) + '\n')
     listfile = out_path + '.lines'
     run_vim(out_path, [p[0] for p in paras], listfile)
-    starts = [int(x) for x in open(listfile).read().split()]
+    # The first line of each formatted paragraph and its number of lines.
+    ranges = [tuple(int(x) for x in r.split())
+              for r in open(listfile).read().splitlines()]
     os.remove(listfile)
-    if len(starts) != len(paras):
+    if len(ranges) != len(paras):
         sys.exit('Vim did not format all paragraphs')
     res = open(out_path, encoding='utf-8').read().split('\n')
-    for (_, prefix), lnum in zip(paras, starts):
+    for (_, prefix), (lnum, count), sp in zip(paras, ranges, spaces):
+        for i in range(lnum - 1, lnum + count - 1):
+            if i >= lnum and res[i].strip() == '>':
+                # A ">" that "gq" left alone on a line goes to column 1.
+                res[i] = '>'
+            elif sp:
+                # "gq" indents with tabs, keep the spaces of the first line.
+                body = res[i].lstrip(' \t')
+                res[i] = ' ' * width(res[i][:len(res[i]) - len(body)]) + body
         if prefix is not None:
-            ws = blank(width(prefix))
-            if not res[lnum - 1].startswith(ws):
+            first = res[lnum - 1]
+            body = first.lstrip(' \t')
+            if width(first[:len(first) - len(body)]) != width(prefix):
                 sys.exit(f'{out_path}:{lnum}: prefix not found')
-            res[lnum - 1] = prefix + res[lnum - 1][len(ws):]
+            res[lnum - 1] = prefix + body
     with open(out_path, 'w', encoding='utf-8') as f:
         f.write('\n'.join(res))
 
