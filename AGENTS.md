@@ -19,6 +19,7 @@ viai-editor/viai-doc-ja へ反映する。
   ための控えで、翻訳と同時に更新する。
 - `dict.yml`: 表記揺れチェック (nvcheck) の辞書。
 - `tools/`: タグ生成・HTML 生成・チェック用のスクリプト。
+- `tools/retranslate/`: 新規翻訳の道具 (`README.md` を参照)。
 
 ## 作業の流れ
 
