@@ -4,8 +4,10 @@
 Usage: build.py EN_TXT DRAFT OUT_JAX
 
 Draft lines:
-  @N          line N of EN_TXT, copied verbatim
-  @N-M        lines N to M of EN_TXT, copied verbatim
+  @N          line N of EN_TXT, copied verbatim, except that a line of
+              "-" underlining a heading gets the width of the heading
+              above it
+  @N-M        lines N to M of EN_TXT, the same
   =TEXT       TEXT as it is (an empty line is "=")
   §TEXT       a paragraph on one line, formatted with "gq"; continuation
               lines get the leading whitespace of TEXT
@@ -26,6 +28,7 @@ Environment:
 """
 import os
 import pty
+import re
 import sys
 import unicodedata
 
@@ -50,6 +53,22 @@ def blank(w, tabs=True):
 def prefix_blank(prefix):
     # Spaces for a prefix without a tab, see the end of main().
     return blank(width(prefix), '\t' in prefix)
+
+
+def heading(line):
+    # The text of a heading, without the tags aligned at its end.
+    return re.sub(r'\t[\t ]*(?:[*|][^*|\s]+[*|][\t ]*)+$', '', line).rstrip()
+
+
+def underline(en, n, out):
+    # Line n (1-based) of the original underlines the heading above it with
+    # "-": the translation gets the width of the translated heading.
+    line = en[n - 1]
+    if n < 2 or not line or line.strip('-') or not out or not out[-1]:
+        return line
+    if len(line) != width(heading(en[n - 2])):
+        return line
+    return '-' * width(heading(out[-1]))
 
 
 def run_vim(path, lnums, listfile):
@@ -114,7 +133,8 @@ def main():
             a, _, b = line[1:].partition('-')
             a = int(a)
             b = int(b) if b else a
-            out.extend(en[a - 1:b])
+            for n in range(a, b + 1):
+                out.append(underline(en, n, out))
         elif line.startswith('='):
             out.append(line[1:])
         elif line.startswith('§'):
