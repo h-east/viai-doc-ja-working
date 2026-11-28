@@ -102,10 +102,35 @@ viai-editor/viai-doc-ja へ反映する。
   「Note 〜ことに注意。」のように訳す。
 - 章見出しの "Rationale" は「設計意図」、行内の "Rationale:" は
   「根拠:」と訳す。
+- モードの名前は以下のように訳す。
+  - "Normal mode": 「ノーマルモード」
+  - "Visual mode": 「ビジュアルモード」。characterwise、linewise、
+    blockwise はそれぞれ「文字単位ビジュアルモード」、「行単位ビジュアル
+    モード」、「矩形ビジュアルモード」。
+  - "Select mode": 「選択モード」。characterwise、linewise、blockwise
+    はそれぞれ「文字単位選択モード」、「行単位選択モード」、「矩形選択
+    モード」。
+  - "Operator-pending mode": 「オペレータ待機モード」
+  - "Insert mode": 「挿入モード」
+  - "Replace mode": 「置換モード」
+  - "Virtual Replace mode": 「仮想置換モード」
+  - "Command-line mode": 「コマンドラインモード」
+  - "Ex mode": 「Ex モード」
+  - コマンドラインモードおよび Ex モードの "Insert"、"Overstrike": 「挿入」、
+    「上書き」
+  - "Terminal-Job mode": 「端末ジョブモード」
+- "abbreviation" は「短縮入力」、"autocommand" は「自動コマンド」、"map"
+  は「マップ」、X11 の "selection" は「セレクション」、章題の
+  "Introduction" は「はじめに」と訳す。
+- "forward"、"backward" は「前方」、「後方」と訳す。"before"、"after" は
+  「前」、「後ろ」と訳し、「前方」、「後方」は使わない。
+- 記号の名前の "backtick" は「バッククォート」、"backslash" は「バック
+  スラッシュ」、"dot" は「ドット」と訳す。
 - 訳語は `dict.yml` に合わせる (サーバー、ユーザー、メンテナー、
   エディタ、インターフェイス、エクスプローラーなど)。
 - 例の中のコメントも訳す。コマンド・オプション名・タグ・URL・
   ファイル名は訳さない。
+- ASCII 文字は半角、カタカナは全角で書く。
 - 句読点は「、」「。」。括弧は半角 `()` を使い、全角の括弧は使わない。
 - `(` の前が通常の ASCII 文字で無い場合は空白を 1 つ入れる (`。` と `、`
   を除く)。
@@ -118,11 +143,12 @@ viai-editor/viai-doc-ja へ反映する。
     (例: 2023年8月、2023年8月3日)。
   - 句読点と ASCII 英数文字の間には空白を入れない。
 - 数は漢数字を使わず、ASCII の数字で書く (例: 「2 つ」、「1 行」)。
-  ただし、「二重」のように 1 語として定着した語は漢数字で書く (例:
-  「二重下線」、「二重引用符」)。
+  ただし、「二重」のように 1 語として定着した語や慣用表現は漢数字で
+  書く (例: 「二重下線」、「二重引用符」、「二度と起きない」)。
 
 ## ヘルプファイルの書式
 
+- 文字コードは UTF-8、改行は LF にする。
 - 1 行目は `*{name}.txt*	For ViAI バージョン 1.0.  Last change: {原文の日付}`。
 - タイトルは `VIAI リファレンスマニュアル` のように訳す。
 - 最終行のモードライン (`vim:tw=78:ts=8:noet:ft=help:norl:`) は原文の
@@ -134,6 +160,10 @@ viai-editor/viai-doc-ja へ反映する。
   `Vim` または `|+feature|` にする (例: `{|+textprop| 機能が…}`、
   `{Vim が |+tcl| 機能付きで…}`)。そうしないと `syntax/help_ja.vim` の
   `helpNotVi` でハイライトされない。
+  - `{only available when compiled with the |+xxx| feature}` および
+    `{not available when compiled without the |+xxx| feature}` は、どち
+    らも `{Vim が |+xxx| 機能付きでコンパイルされたときのみ有効}` または
+    `{|+xxx| 機能付きでコンパイルされたときのみ有効}` と訳す。
 - 原文の大文字の見出し (例: `LISTING SIGNS`) は、訳の行頭に `☆` を
   付ける (例: `☆目印の一覧表示`)。そうしないと `syntax/help_ja.vim` の
   `helpHeadline` でハイライトされない。名前の見出し (例: `UNIX`、
