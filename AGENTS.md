@@ -157,8 +157,9 @@ viai-editor/viai-doc-ja へ反映する。
 - `*tag*` の前は行頭・空白・タブのどれか、後ろは空白・タブ・行末のどれか
   にする (例: `定義できる。 *E1316*`)。そうしないとタグにならない。
 - `{not ...}`、`{only ...}` のような `{...}` の注記の訳は、`{` の直後を
-  `Vim` または `|+feature|` にする (例: `{|+textprop| 機能が…}`、
-  `{Vim が |+tcl| 機能付きで…}`)。そうしないと `syntax/help_ja.vim` の
+  `Vim`、`ViAI`、`|ViAI|` または `|+feature|` にする (例:
+  `{|+textprop| 機能が…}`、`{Vim が |+tcl| 機能付きで…}`、
+  `{|ViAI| のみ}`)。そうしないと `syntax/help_ja.vim` の
   `helpNotVi` でハイライトされない。
   - `{only available when compiled with the |+xxx| feature}` および
     `{not available when compiled without the |+xxx| feature}` は、どち
