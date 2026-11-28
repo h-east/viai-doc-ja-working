@@ -43,16 +43,9 @@ def width(s):
     return col
 
 
-def blank(w, tabs=True):
+def blank(w):
     # Whitespace of display width w starting at column 0.
-    if not tabs:
-        return ' ' * w
     return '\t' * (w // 8) + ' ' * (w % 8)
-
-
-def prefix_blank(prefix):
-    # Spaces for a prefix without a tab, see the end of main().
-    return blank(width(prefix), '\t' in prefix)
 
 
 def heading(line):
@@ -141,7 +134,7 @@ def main():
             body = line[1:]
             if '§' in body:
                 prefix, text = body.split('§', 1)
-                out.append(prefix_blank(prefix) + text)
+                out.append(blank(width(prefix)) + text)
                 paras.append((len(out), prefix))
             else:
                 out.append(body)
